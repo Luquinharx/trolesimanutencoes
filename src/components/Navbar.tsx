@@ -79,15 +79,15 @@ const Navbar = () => {
                             />
                         </div>
 
-                        <div className="flex flex-col gap-8 w-full">
+                        <div className="flex flex-col gap-6 w-full items-center">
                             {navLinks.map((link, i) => (
                                 <motion.a
                                     key={link.to}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1 + (i * 0.1) }}
                                     href={`#${link.to}`}
-                                    className="text-3xl font-sans font-medium text-white hover:text-[var(--color-brand-primary)] transition-colors text-left border-b border-white/5 pb-4"
+                                    className="text-4xl font-sans font-medium text-white hover:text-[var(--color-brand-primary)] transition-colors text-center w-full py-2 hover:bg-white/5 rounded-xl uppercase tracking-wider"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     {link.name}
