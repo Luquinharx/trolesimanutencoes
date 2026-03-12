@@ -1,5 +1,5 @@
 ﻿import { motion } from 'framer-motion';
-import { Award, CheckCircle, Factory, Cog, Settings, Wrench } from 'lucide-react';
+import { Award, CheckCircle, Factory, Cog } from 'lucide-react';
 
 const RotatingGear = ({ className, duration = 10, reverse = false, size = 100 }: { className?: string, duration?: number, reverse?: boolean, size?: number }) => (
     <motion.div
