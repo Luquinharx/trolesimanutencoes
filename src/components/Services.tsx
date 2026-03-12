@@ -143,7 +143,7 @@ const Services = () => {
                         <motion.div
                             key={service.number}
                             variants={itemVariants}
-                            className="relative rounded-2xl p-8 md:p-10 overflow-hidden group cursor-default transition-all duration-500 hover:-translate-y-1"
+                            className="relative rounded-3xl p-8 md:p-10 overflow-hidden group cursor-default transition-all duration-500 hover:-translate-y-1"
                             style={{
                                 background: 'rgba(255,255,255,0.03)',
                                 border: '1px solid rgba(255,255,255,0.08)',
