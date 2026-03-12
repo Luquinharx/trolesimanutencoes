@@ -59,22 +59,56 @@ const Navbar = () => {
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -20, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                        transition={{ duration: 0.2 }}
-                        className="fixed top-24 left-4 right-4 bg-[#111]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-6 flex flex-col gap-6 md:hidden shadow-2xl pointer-events-auto z-50 text-center"
+                        initial={{ opacity: 0, x: '100%' }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: '100%' }}
+                        transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                        className="fixed inset-0 bg-[#0a0a0a]/95 backdrop-blur-2xl z-[60] flex flex-col items-center justify-center gap-12 pointer-events-auto md:hidden"
                     >
-                        {navLinks.map((link) => (
-                            <a
-                                key={link.to}
-                                href={`#${link.to}`}
-                                className="text-xl font-medium text-white hover:text-[var(--color-brand-primary)] py-3 border-b border-white/5 last:border-0"
-                                onClick={() => setMobileMenuOpen(false)}
-                            >
-                                {link.name}
-                            </a>
-                        ))}
+                        {/* Close Button */}
+                        <button 
+                            className="absolute top-8 right-8 text-white/60 hover:text-white p-2"
+                            onClick={() => setMobileMenuOpen(false)}
+                        >
+                            <X size={32} />
+                        </button>
+
+                        <div className="text-center mb-8">
+                            <span className="text-2xl font-bold text-white tracking-wider block">
+                                <span className="text-[var(--color-brand-primary)]">TRO</span>LESI
+                            </span>
+                            <span className="text-xs text-white/40 uppercase tracking-[0.3em] font-light">Manutenções</span>
+                        </div>
+
+                        <div className="flex flex-col gap-6 w-full px-12">
+                            {navLinks.map((link, i) => (
+                                <motion.a
+                                    key={link.to}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.1 + (i * 0.1) }}
+                                    href={`#${link.to}`}
+                                    className="text-4xl font-serif text-white hover:text-[var(--color-brand-primary)] transition-colors text-center"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    {link.name}
+                                </motion.a>
+                            ))}
+                        </div>
+
+                        <motion.button
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 }}
+                            onClick={() => {
+                                setMobileMenuOpen(false);
+                                window.open("https://wa.me/5511999999999", "_blank");
+                            }}
+                            className="mt-8 px-8 py-3 bg-[var(--color-brand-primary)] text-black font-bold uppercase tracking-widest text-sm rounded-full hover:bg-[var(--color-brand-primary)]/80 transition-all"
+                        >
+                            Fale Conosco
+                        </motion.button>
+
                     </motion.div>
                 )}
             </AnimatePresence>

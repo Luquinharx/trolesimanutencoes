@@ -50,22 +50,25 @@ const Hero = () => {
         className="absolute inset-0 w-full h-full origin-center"
         style={{ scale, willChange: 'transform' }}
       >
-        {/* Dark gradient overlay — significantly reduced opacity */}
+        {/* Dark gradient overlay — significantly increased for Mobile Readability */}
         <motion.div
           className="absolute inset-0 z-10 pointer-events-none"
           style={{
             opacity: overlayOpacity,
             background:
-              'linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.65) 100%)',
+              'linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.85) 100%)', // Increased opacity
           }}
         />
+
+        {/* Mobile-only additional overlay for contrast */}
+        <div className="absolute inset-0 z-10 bg-black/40 md:hidden pointer-events-none" />
 
         {/* Additional bottom vignette for text legibility */}
         <div
           className="absolute inset-0 z-10 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%)',
+              'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.8) 100%)',
           }}
         />
 
