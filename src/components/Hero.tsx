@@ -123,16 +123,16 @@ const Hero = () => {
       <div 
         className="container relative z-20 px-6 md:px-12 flex flex-col justify-center h-full pb-32"
       >
-        <div className="max-w-4xl mr-auto">
+        <div className="max-w-4xl mr-auto w-full flex flex-col items-center md:items-start">
           {/* Eyebrow — since / year */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex items-center gap-3 mb-6"
+            className="flex flex-col md:flex-row items-center gap-3 mb-6"
           >
-            <div className="h-px w-10 bg-[var(--color-brand-primary)]" />
-            <span className="text-[var(--color-brand-primary)] text-[11px] tracking-[0.45em] uppercase font-medium">
+            <div className="h-px w-10 bg-[var(--color-brand-primary)] md:block hidden" />
+            <span className="text-[var(--color-brand-primary)] text-[11px] tracking-[0.45em] uppercase font-medium text-center md:text-left leading-relaxed">
               Desde 2005 · Especialistas em Maquinário
             </span>
           </motion.div>
@@ -142,7 +142,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-sans font-bold text-white tracking-tight leading-[1.05] mb-6 text-left"
+            className="text-5xl md:text-7xl lg:text-8xl font-sans font-bold text-white tracking-tight leading-[1.05] mb-6 text-center md:text-left"
             style={{ textShadow: '0 4px 60px rgba(0,0,0,0.9)' }}
           >
             Força Bruta.
@@ -157,19 +157,19 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-gray-300 text-lg md:text-xl font-light leading-relaxed max-w-xl mb-12 text-left"
+            className="text-gray-300 text-lg md:text-xl font-light leading-relaxed max-w-xl mb-12 text-center md:text-left"
             style={{ textShadow: '0 2px 30px rgba(0,0,0,0.9)' }}
           >
             Especialistas em montagem, desmontagem e manutenção de maquinário
             industrial para grandes empresas de gás de cozinha.
           </motion.p>
-
+          
           {/* CTA Buttons */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-start w-full md:w-auto"
+            className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start w-full md:w-auto"
           >
             <a
               href="https://wa.me/5511999999999"

@@ -61,7 +61,7 @@ const About = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="w-full md:w-7/12"
+                        className="w-full md:w-7/12 flex flex-col items-center md:items-start text-center md:text-left"
                     >
                         {/* Consistent Badge Style */}
                         <div className="inline-flex items-center gap-2 bg-[var(--color-brand-primary)]/10 border border-[var(--color-brand-primary)]/25 rounded-full px-4 py-1.5 mb-6">
@@ -78,8 +78,8 @@ const About = () => {
                             </span>
                         </h2>
 
-                        {/* Text Left Aligned for better readability on mobile */}
-                        <div className="space-y-6 text-gray-300 font-light text-lg leading-relaxed text-left">
+                        {/* Text Centered on Mobile, Left on Desktop */}
+                        <div className="space-y-6 text-gray-300 font-light text-lg leading-relaxed text-center md:text-left">
                             <p>
                                 A <strong>Trolesi Manutenções</strong> é uma empresa consolidada no mercado de engenharia e manutenção industrial, especializada em atender as demandas críticas de grandes complexos de <strong>gás de cozinha (GLP)</strong> e indústrias de alta periculosidade.
                             </p>
@@ -99,12 +99,12 @@ const About = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
-                        className="w-full lg:w-1/2"
+                        className="w-full lg:w-1/2 flex flex-col items-center md:items-start text-center md:text-left"
                     >
                         <h2 className="text-3xl md:text-4xl font-serif text-white mb-6">
                             Nossa <span className="text-[var(--color-brand-primary)]">História</span>
                         </h2>
-                        <div className="space-y-6 text-gray-300 font-light leading-relaxed text-lg text-left">
+                        <div className="space-y-6 text-gray-300 font-light leading-relaxed text-lg text-center md:text-left">
                             <p>
                                 Desde <strong>2005</strong>, nascemos com a missão de prover serviços de alta complexidade mecânica. Ao longo de quase duas décadas, expandimos nossa atuação para <strong>mais de 10 estados brasileiros</strong>, firmando parcerias vitais com as maiores gigantes nacionais do setor de energia.
                             </p>
