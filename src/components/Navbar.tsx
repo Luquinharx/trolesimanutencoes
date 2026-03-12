@@ -26,8 +26,13 @@ const Navbar = () => {
                 scrolled ? 'py-4' : 'py-6'
             }`}
         >
-            <div className="container mx-auto px-6 md:px-12 flex justify-center md:justify-center items-center relative pointer-events-auto">
+            <div className="container mx-auto px-6 md:px-12 flex justify-between md:justify-center items-center relative pointer-events-auto">
                 
+                {/* Mobile Logo Left */}
+                <a href="#hero" className="md:hidden block text-xl font-bold text-white tracking-wider">
+                    <span className="text-[var(--color-brand-primary)]">TRO</span>LESI
+                </a>
+
                 {/* Desktop Nav - Centered Pills w/o Logo */}
                 <div className="hidden md:flex gap-12 items-center bg-black/40 px-12 py-3.5 rounded-full border border-white/10 backdrop-blur-md shadow-2xl">
                     {navLinks.map((link) => (

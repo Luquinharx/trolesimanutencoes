@@ -41,7 +41,7 @@ const Hero = () => {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative w-full h-[120vh] overflow-hidden bg-black flex items-center justify-center"
+      className="relative w-full min-h-[100dvh] md:h-[120vh] overflow-hidden bg-black flex items-center justify-center"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

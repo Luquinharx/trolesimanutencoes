@@ -4,15 +4,15 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-[#050505] pt-20 pb-10 border-t border-white/10">
+        <footer className="bg-[#050505] pt-12 md:pt-20 pb-10 border-t border-white/10">
             <div className="container mx-auto px-6 md:px-12">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-16">
 
                     <div className="md:col-span-2 flex flex-col items-center md:flex-row md:items-center gap-8 text-center md:text-left">
                         <img
                             src="/logo.png"
                             alt="Trolesi Manutenções"
-                            className="h-40 w-auto rounded-lg object-contain flex-shrink-0"
+                            className="h-24 md:h-40 w-auto rounded-lg object-contain flex-shrink-0"
                         />
                         <p className="text-gray-400 font-light leading-relaxed max-w-sm">
                             Mais de uma década provendo segurança, manutenções complexas e confiabilidade estrutural para o mercado de gás de cozinha.

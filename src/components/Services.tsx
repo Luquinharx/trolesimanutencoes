@@ -67,7 +67,7 @@ const Services = () => {
     return (
         <section
             id="services"
-            className="py-28 relative overflow-hidden"
+            className="py-16 md:py-28 relative overflow-hidden"
             style={{
                 background: 'linear-gradient(180deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%)',
             }}

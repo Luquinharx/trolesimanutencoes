@@ -14,11 +14,11 @@ const WhatsAppButton = () => {
             transition={{ delay: 1, duration: 0.5, type: 'spring' }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl flex items-center justify-center cursor-pointer group"
+            className="fixed bottom-4 right-4 md:bottom-10 md:right-10 z-50 bg-[#25D366] text-white p-3 md:p-4 rounded-full shadow-2xl flex items-center justify-center cursor-pointer group"
             aria-label="Falar conosco no WhatsApp"
         >
             <div className="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-75 group-hover:hidden" />
-            <MessageCircle size={32} className="relative z-10" />
+            <MessageCircle size={24} className="md:w-8 md:h-8 relative z-10" />
         </motion.a>
     );
 };
