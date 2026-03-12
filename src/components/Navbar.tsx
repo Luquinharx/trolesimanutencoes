@@ -28,8 +28,11 @@ const Navbar = () => {
         >
             <div className="container mx-auto px-6 md:px-12 flex justify-between md:justify-center items-center relative pointer-events-auto">
                 
-                {/* Mobile Logo Left - Hidden text per request, could use an image if desired, but user asked to remove text */}
-                <div className="md:hidden block" /> 
+                {/* Mobile Logo Left - 3D Gear Stylized */}
+                <div className="md:hidden flex items-center gap-2">
+                    <img src="/logo.png" alt="Trolesi Logo" className="h-10 w-auto object-contain drop-shadow-lg" />
+                    <span className="text-white font-bold tracking-wider text-sm">TROLESI</span>
+                </div> 
 
                 {/* Desktop Nav - Centered Pills w/o Logo */}
                 <div className="hidden md:flex gap-12 items-center bg-black/40 px-12 py-3.5 rounded-full border border-white/10 backdrop-blur-md shadow-2xl">
@@ -61,32 +64,33 @@ const Navbar = () => {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: '100%' }}
                         transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                        className="fixed inset-0 bg-[#0a0a0a]/95 backdrop-blur-2xl z-[60] flex flex-col items-center justify-center gap-12 pointer-events-auto md:hidden"
+                        className="fixed inset-0 bg-[#0a0a0a] z-[60] flex flex-col px-8 py-12 pointer-events-auto md:hidden"
                     >
                         {/* Close Button */}
                         <button 
-                            className="absolute top-8 right-8 text-white/60 hover:text-white p-2"
+                            className="absolute top-6 right-6 text-white/60 hover:text-white p-2"
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             <X size={32} />
                         </button>
 
-                        <div className="text-center mb-8">
-                            <span className="text-2xl font-bold text-white tracking-wider block">
-                                <span className="text-[var(--color-brand-primary)]">TRO</span>LESI
-                            </span>
-                            <span className="text-xs text-white/40 uppercase tracking-[0.3em] font-light">Manutenções</span>
+                        <div className="w-full flex justify-center mb-12 mt-4">
+                            <img 
+                                src="/logo.png" 
+                                alt="Trolesi Original Logo" 
+                                className="w-48 h-auto object-contain drop-shadow-[0_0_25px_rgba(245,166,35,0.2)]" 
+                            />
                         </div>
 
-                        <div className="flex flex-col gap-6 w-full px-12">
+                        <div className="flex flex-col gap-8 w-full">
                             {navLinks.map((link, i) => (
                                 <motion.a
                                     key={link.to}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.1 + (i * 0.1) }}
                                     href={`#${link.to}`}
-                                    className="text-4xl font-serif text-white hover:text-[var(--color-brand-primary)] transition-colors text-center"
+                                    className="text-3xl font-sans font-medium text-white hover:text-[var(--color-brand-primary)] transition-colors text-left border-b border-white/5 pb-4"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     {link.name}
@@ -94,18 +98,20 @@ const Navbar = () => {
                             ))}
                         </div>
 
-                        <motion.button
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 }}
-                            onClick={() => {
-                                setMobileMenuOpen(false);
-                                window.open("https://wa.me/5511999999999", "_blank");
-                            }}
-                            className="mt-8 px-8 py-3 bg-[var(--color-brand-primary)] text-black font-bold uppercase tracking-widest text-sm rounded-full hover:bg-[var(--color-brand-primary)]/80 transition-all"
-                        >
-                            Fale Conosco
-                        </motion.button>
+                        <div className="mt-auto w-full flex justify-center">
+                            <motion.button
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4 }}
+                                onClick={() => {
+                                    setMobileMenuOpen(false);
+                                    window.open("https://wa.me/5511999999999", "_blank");
+                                }}
+                                className="w-full py-4 bg-[var(--color-brand-primary)] text-black font-bold uppercase tracking-widest text-sm rounded-xl hover:bg-[var(--color-brand-primary)]/90 transition-all shadow-lg shadow-[rgba(245,166,35,0.2)]"
+                            >
+                                FALE CONOSCO
+                            </motion.button>
+                        </div>
 
                     </motion.div>
                 )}

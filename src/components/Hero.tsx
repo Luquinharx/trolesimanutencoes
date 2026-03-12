@@ -60,8 +60,8 @@ const Hero = () => {
           }}
         />
 
-        {/* Mobile-only additional overlay for contrast */}
-        <div className="absolute inset-0 z-10 bg-black/40 md:hidden pointer-events-none" />
+          {/* Mobile-only additional overlay for contrast - Stronger */}
+        <div className="absolute inset-0 z-10 bg-black/60 md:hidden pointer-events-none" />
 
         {/* Additional bottom vignette for text legibility */}
         <div
@@ -142,13 +142,13 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-serif text-white tracking-tight leading-[1.08] mb-8 text-left"
-            style={{ textShadow: '0 2px 40px rgba(0,0,0,0.8)' }}
+            className="text-5xl md:text-7xl lg:text-8xl font-sans font-bold text-white tracking-tight leading-[1.05] mb-6 text-left"
+            style={{ textShadow: '0 4px 60px rgba(0,0,0,0.9)' }}
           >
             Força Bruta.
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-brand-primary)] to-[var(--color-brand-secondary)]">
-              Precisão Fina.
+            <span className="text-[var(--color-brand-primary)]">
+                Precisão Fina.
             </span>
           </motion.h1>
 
@@ -157,8 +157,8 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-gray-200 text-lg md:text-xl font-light leading-relaxed max-w-xl mb-10 text-left"
-            style={{ textShadow: '0 1px 20px rgba(0,0,0,0.9)' }}
+            className="text-gray-300 text-lg md:text-xl font-light leading-relaxed max-w-xl mb-12 text-left"
+            style={{ textShadow: '0 2px 30px rgba(0,0,0,0.9)' }}
           >
             Especialistas em montagem, desmontagem e manutenção de maquinário
             industrial para grandes empresas de gás de cozinha.
@@ -169,19 +169,13 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-start"
+            className="flex flex-col sm:flex-row gap-4 justify-start w-full md:w-auto"
           >
-            <a
-              href="#services"
-              className="px-9 py-4 bg-[var(--color-brand-primary)] text-black font-bold rounded-xl text-sm tracking-wide hover:bg-[var(--color-brand-secondary)] hover:scale-105 transition-all duration-300 shadow-lg shadow-[rgba(245,166,35,0.25)] text-center"
-            >
-              Nossos Serviços
-            </a>
             <a
               href="https://wa.me/5511999999999"
               target="_blank"
               rel="noreferrer"
-              className="px-9 py-4 bg-white/10 backdrop-blur-sm border border-white/25 text-white font-semibold rounded-xl text-sm tracking-wide hover:bg-white/20 hover:scale-105 transition-all duration-300 text-center"
+              className="w-full md:w-auto px-10 py-5 bg-[var(--color-brand-primary)] text-black font-bold rounded-xl text-base tracking-wide hover:bg-[var(--color-brand-primary)]/90 hover:scale-[1.02] transition-all duration-300 shadow-[0_0_40px_rgba(245,166,35,0.3)] text-center"
             >
               Solicitar Orçamento
             </a>
@@ -189,43 +183,26 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* ── FLOATING STATS BOX ── */}
+      {/* ── CLEAN STATS BAND ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[90%] max-w-3xl z-30"
+        className="absolute bottom-0 left-0 w-full z-30 bg-black/80 backdrop-blur-md border-t border-white/10 py-6 md:py-8"
       >
-        <div className="bg-black/80 backdrop-blur-xl border border-white/15 rounded-2xl p-5 md:p-6 flex flex-col md:flex-row justify-between items-center gap-4 shadow-2xl">
-          <div className="text-center md:text-left">
-            <p className="text-white/50 text-[10px] uppercase tracking-widest font-semibold mb-1">
-              Experiência
-            </p>
-            <p className="text-white text-lg font-semibold">+19 Anos no Mercado</p>
-          </div>
-          <div className="hidden md:block w-px h-10 bg-white/15" />
-          <div className="text-center md:text-left">
-            <p className="text-white/50 text-[10px] uppercase tracking-widest font-semibold mb-1">
-              Atuação
-            </p>
-            <p className="text-white text-lg font-semibold">+10 Estados Brasileiros</p>
-          </div>
-          <div className="hidden md:block w-px h-10 bg-white/15" />
-          <div className="text-center md:text-left">
-            <p className="text-white/50 text-[10px] uppercase tracking-widest font-semibold mb-1">
-              Projetos
-            </p>
-            <p className="text-white text-lg font-semibold">+500 Entregues</p>
-          </div>
-          <div className="hidden md:block w-px h-10 bg-white/15" />
-          <a
-            href="https://wa.me/5511999999999"
-            target="_blank"
-            rel="noreferrer"
-            className="w-full md:w-auto px-7 py-3.5 bg-[var(--color-brand-primary)] text-black font-bold rounded-xl hover:bg-[var(--color-brand-secondary)] transition-colors duration-300 text-center text-sm tracking-wide whitespace-nowrap"
-          >
-            Fale Conosco
-          </a>
+        <div className="container px-6 md:px-12 flex flex-row flex-wrap justify-between md:justify-start gap-8 md:gap-24 items-center">
+            <div>
+               <p className="text-3xl md:text-4xl font-bold text-white">+19</p>
+               <p className="text-xs text-gray-400 uppercase tracking-widest mt-1">Anos de Mercado</p>
+            </div>
+            <div>
+                <p className="text-3xl md:text-4xl font-bold text-white">+10</p>
+                <p className="text-xs text-gray-400 uppercase tracking-widest mt-1">Estados Atendidos</p>
+            </div>
+            <div>
+                <p className="text-3xl md:text-4xl font-bold text-white">+500</p>
+                <p className="text-xs text-gray-400 uppercase tracking-widest mt-1">Projetos Entregues</p>
+            </div>
         </div>
       </motion.div>
     </section>

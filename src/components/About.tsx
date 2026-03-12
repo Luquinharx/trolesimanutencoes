@@ -1,5 +1,5 @@
 ﻿import { motion } from 'framer-motion';
-import { Award, CheckCircle, Factory, Cog } from 'lucide-react';
+import { Award, CheckCircle, Factory } from 'lucide-react';
 
 const About = () => {
     return (
@@ -35,27 +35,23 @@ const About = () => {
                 {/* ── PART 1: LOGO & INTRO (BRANDING) ── */}
                 <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-center">
                     
-                    {/* Left Column: Minimalist Typographic Logo (Replaces 3D Gear) */}
+                    {/* Left Column: Original 3D Gear Logo (Reintroduced) */}
                     <div className="w-full md:w-5/12 mx-auto flex justify-center md:justify-end">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
-                            className="relative p-10 border border-white/5 bg-white/[0.02] backdrop-blur-sm rounded-3xl"
+                            className="relative"
                         >
-                            <div className="text-center md:text-right">
-                                <h2 className="text-5xl md:text-6xl font-bold tracking-widest text-white leading-none">
-                                    <span className="text-[var(--color-brand-primary)]">TRO</span>LESI
-                                </h2>
-                                <p className="text-sm md:text-base text-gray-400 font-light tracking-[0.6em] uppercase mt-2 border-t border-white/10 pt-2">
-                                    Manutenções
-                                </p>
-                            </div>
+                            <img 
+                                src="/logo.png" 
+                                alt="Trolesi Manutenções - Logo" 
+                                className="w-64 md:w-80 h-auto object-contain drop-shadow-[0_0_50px_rgba(245,166,35,0.15)]"
+                            />
                             
-                            {/* Decorative accent */}
-                            <div className="absolute -bottom-2 -right-2 w-20 h-20 border-r-2 border-b-2 border-[var(--color-brand-primary)]/30 rounded-br-3xl" />
-                            <div className="absolute -top-2 -left-2 w-10 h-10 border-l-2 border-t-2 border-[var(--color-brand-primary)]/30 rounded-tl-3xl" />
+                            {/* Decorative accent behind logo */}
+                            <div className="absolute -inset-10 bg-[var(--color-brand-primary)]/5 blur-3xl -z-10 rounded-full" />
                         </motion.div>
                     </div>
 
@@ -116,18 +112,6 @@ const About = () => {
                                 Nossa equipe não entrega apenas serviço; nós garantimos confiabilidade operacional e segurança estrutural.
                             </p>
                         </div>
-                        
-                        {/* Stats - ONLY here to avoid redundancy */}
-                        <div className="grid grid-cols-2 gap-6 mt-12">
-                             <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-[var(--color-brand-primary)]/30 transition-colors">
-                                <p className="text-4xl font-bold text-[var(--color-brand-primary)] mb-1">+19</p>
-                                <p className="text-xs uppercase tracking-wider text-gray-400">Anos de Mercado</p>
-                            </div>
-                            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-[var(--color-brand-primary)]/30 transition-colors">
-                                <p className="text-4xl font-bold text-[var(--color-brand-primary)] mb-1">+500</p>
-                                <p className="text-xs uppercase tracking-wider text-gray-400">Projetos Entregues</p>
-                            </div>
-                        </div>
                     </motion.div>
 
                     {/* Certificações / Painel Visual - Right Side */}
@@ -136,35 +120,35 @@ const About = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.3 }}
-                        className="w-full lg:w-1/2"
+                        className="w-full lg:w-1/2 flex justify-center"
                     >
-                        {/* Imagem + Overlay de Certificação */}
-                        <div className="relative rounded-3xl overflow-hidden border border-white/10 bg-neutral-900 group shadow-2xl">
-                             {/* Darker Image Background */}
-                             <div className="aspect-[4/3] relative">
-                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
+                        {/* Imagem + Overlay de Certificação - Optimized Framing */}
+                        <div className="relative w-full max-w-sm md:max-w-none rounded-3xl overflow-hidden border border-white/10 bg-neutral-900 group shadow-2xl mx-4 md:mx-0">
+                             {/* Background Scene - Subtle Welding */}
+                             <div className="aspect-[4/5] md:aspect-[4/3] relative">
+                                <div className="absolute inset-0 bg-black/70 z-10" />
                                 <img
                                     src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop"
-                                    alt="Ferramentas e Instrumentos"
-                                    className="w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-700"
+                                    alt="Soldagem Industrial"
+                                    className="w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-700"
                                 />
                              </div>
 
-                             {/* Content Overlay */}
-                             <div className="absolute inset-0 z-20 flex flex-col justify-center p-8 md:p-12">
-                                <h3 className="text-2xl font-serif text-white mb-8 text-center uppercase tracking-widest border-b border-white/10 pb-4">
+                             {/* Content Overlay - Centered and Spaced */}
+                             <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-8">
+                                <h3 className="text-2xl font-bold text-white mb-8 text-center uppercase tracking-widest bg-black/40 backdrop-blur-sm px-6 py-2 rounded-full border border-white/10">
                                     Qualidade Garantida
                                 </h3>
 
-                                <div className="w-full space-y-4">
+                                <div className="w-full space-y-6">
                                     {[
                                         { icon: Award, text: 'Licença Industrial 202A' },
                                         { icon: CheckCircle, text: 'Laudos ERF80M C80G5' },
                                         { icon: Factory, text: 'Segurança ABNT / NBR' }
                                     ].map((cert, i) => (
-                                        <div key={i} className="flex items-center gap-4 bg-black/60 p-4 rounded-xl border border-white/10 hover:border-[var(--color-brand-primary)]/50 transition-colors backdrop-blur-md">
-                                            <cert.icon className="text-[var(--color-brand-primary)] w-6 h-6 flex-shrink-0" />
-                                            <span className="text-gray-200 font-medium">{cert.text}</span>
+                                        <div key={i} className="flex items-center gap-5 bg-black/80 p-5 rounded-2xl border border-white/10 hover:border-[var(--color-brand-primary)]/50 transition-colors backdrop-blur-md shadow-lg">
+                                            <cert.icon className="text-[var(--color-brand-primary)] w-7 h-7 flex-shrink-0" />
+                                            <span className="text-white font-medium text-base md:text-lg">{cert.text}</span>
                                         </div>
                                     ))}
                                 </div>
