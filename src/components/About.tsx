@@ -1,113 +1,100 @@
 ﻿import { motion } from 'framer-motion';
 import { Award, CheckCircle, Factory, Cog } from 'lucide-react';
 
-const RotatingGear = ({ className, duration = 10, reverse = false, size = 100 }: { className?: string, duration?: number, reverse?: boolean, size?: number }) => (
-    <motion.div
-        animate={{ rotate: reverse ? -360 : 360 }}
-        transition={{ repeat: Infinity, duration: duration, ease: "linear" }}
-        className={`absolute pointer-events-none origin-center flex items-center justify-center ${className}`}
-        style={{
-             width: size,
-             height: size
-        }}
-    >
-        <svg
-            viewBox="0 0 100 100"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-full drop-shadow-2xl"
+const RotatingGear = ({ className, duration = 10, reverse = false, size = 100 }: { className?: string, duration?: number, reverse?: boolean, size?: number }) => {
+    // Gerar dentes da engrenagem matematicamente perfeitos
+    const numTeeth = 12;
+    const outerRadius = 49;
+    const innerRadius = 40;
+    const center = 50;
+    
+    let pathD = "";
+    for (let i = 0; i < numTeeth; i++) {
+        const angle = (i * 360) / numTeeth;
+        const angleRad = (angle * Math.PI) / 180;
+        const nextAngle = ((i + 1) * 360) / numTeeth;
+        
+        // Largura do dente (em graus)
+        const toothWidth = 360 / numTeeth / 2.5; 
+        
+        // Pontos do dente
+        const a1 = angle - toothWidth/2;
+        const a2 = angle - toothWidth/4; // leve chanfro
+        const a3 = angle + toothWidth/4; // leve chanfro
+        const a4 = angle + toothWidth/2;
+        
+        const r1 = innerRadius;
+        const r2 = outerRadius;
+        
+        // Função auxiliar para coordenadas
+        const getCoord = (deg: number, r: number) => {
+            const rad = ((deg - 90) * Math.PI) / 180;
+            return `${center + r * Math.cos(rad)} ${center + r * Math.sin(rad)}`;
+        };
+        
+        const p1 = getCoord(a1, r1);
+        const p2 = getCoord(a2, r2);
+        const p3 = getCoord(a3, r2);
+        const p4 = getCoord(a4, r1);
+        const pNext = getCoord(nextAngle - toothWidth/2, r1); // Ponto de conexão com o próximo
+        
+        if (i === 0) pathD += `M ${p1} L ${p2} L ${p3} L ${p4}`;
+        else pathD += ` L ${p1} L ${p2} L ${p3} L ${p4}`;
+        
+        // Arco interno até o próximo dente
+        pathD += ` A ${r1} ${r1} 0 0 1 ${pNext}`;
+    }
+    pathD += " Z";
+
+    // Furos circulares para aliviar peso (design industrial)
+    const holes = [0, 60, 120, 180, 240, 300].map(deg => {
+        const rad = ((deg - 90) * Math.PI) / 180;
+        const cx = 50 + 28 * Math.cos(rad);
+        const cy = 50 + 28 * Math.sin(rad);
+        return <circle key={deg} cx={cx} cy={cy} r="6" fill="#1a1a1a" stroke="url(#hole-gradient)" strokeWidth="0.5" />;
+    });
+
+    return (
+        <motion.div
+            animate={{ rotate: reverse ? -360 : 360 }}
+            transition={{ repeat: Infinity, duration: duration, ease: "linear" }}
+            className={`absolute pointer-events-none origin-center flex items-center justify-center ${className}`}
+            style={{ width: size, height: size }}
         >
-            <defs>
-                {/* Gradiente Metálico Base (Aço Escuro) */}
-                <linearGradient id="steel-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#2b2b2b" />
-                    <stop offset="25%" stopColor="#5a5a5a" />
-                    <stop offset="50%" stopColor="#3d3d3d" />
-                    <stop offset="75%" stopColor="#5a5a5a" />
-                    <stop offset="100%" stopColor="#222222" />
-                </linearGradient>
-
-                 {/* Gradiente para o anel interno (Aço mais claro) */}
-                 <linearGradient id="inner-ring-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#444" />
-                    <stop offset="50%" stopColor="#777" />
-                    <stop offset="100%" stopColor="#333" />
-                </linearGradient>
-
-                {/* Filtro de Textura Industrial (Ruído + Iluminação) */}
-                <filter id="industrial-texture" x="-20%" y="-20%" width="140%" height="140%">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="4" result="noise" />
-                    <feColorMatrix type="saturate" values="0" in="noise" result="desaturatedNoise" />
-                    <feComposite operator="in" in="desaturatedNoise" in2="SourceGraphic" result="composite" />
-                    <feBlend mode="overlay" in="composite" in2="SourceGraphic" result="textured" />
-                    
-                    {/* Leve sombra interna para dar volume 3D */}
-                    <feGaussianBlur in="SourceAlpha" stdDeviation="1" result="blur" />
-                    <feOffset dx="1" dy="1" result="offsetBlur" />
-                    <feSpecularLighting in="blur" surfaceScale="2" specularConstant="1" specularExponent="20" lightingColor="#ffffff" result="specular">
-                        <fePointLight x="-5000" y="-10000" z="20000" />
-                    </feSpecularLighting>
-                    <feComposite in="specular" in2="SourceAlpha" operator="in" result="specular" />
-                    <feComposite in="SourceGraphic" in2="specular" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" />
-                </filter>
+            <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-2xl overflow-visible">
+                <defs>
+                    <linearGradient id="gear-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#e0e0e0" />
+                        <stop offset="50%" stopColor="#5a5a5a" />
+                        <stop offset="100%" stopColor="#222" />
+                    </linearGradient>
+                    <linearGradient id="hole-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                         <stop offset="0%" stopColor="#000" />
+                         <stop offset="100%" stopColor="#333" />
+                    </linearGradient>
+                    <filter id="metal-glow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="1" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                </defs>
                 
-                {/* Sombra projetada forte */}
-                <filter id="heavy-shadow">
-                    <feDropShadow dx="2" dy="4" stdDeviation="6" floodColor="black" floodOpacity="0.8" />
-                </filter>
-            </defs>
-
-            {/* Corpo Principal da Engrenagem (Dentes Industriais) */}
-            <path
-                d="M50 15 
-                   L55 5 L65 5 L70 15 
-                   L78 18 
-                   L88 12 L95 18 L90 28 
-                   L95 35 
-                   L105 38 L105 48 L95 51 
-                   L92 60 
-                   L100 70 L92 78 L80 75 
-                   L72 82 
-                   L75 95 L62 98 L58 85 
-                   L42 85 
-                   L38 98 L25 95 L28 82 
-                   L20 75 
-                   L8 78 L0 70 L8 60 
-                   L5 51 
-                   L-5 48 L-5 38 L5 35 
-                   L10 28 
-                   L5 18 L12 12 L22 18 
-                   L30 15 
-                   L35 5 L45 5 L50 15 Z"
-                fill="url(#steel-gradient)"
-                stroke="#1a1a1a"
-                strokeWidth="0.5"
-                filter="url(#industrial-texture)"
-                transform="translate(0, 0)" // Ajuste fino se necessário
-            />
-
-            {/* Anel de Reforço Central */}
-            <circle cx="50" cy="50" r="32" fill="none" stroke="url(#inner-ring-gradient)" strokeWidth="8" filter="url(#heavy-shadow)" opacity="0.9" />
-            
-            {/* Parafusos de Fixação (Hex bolts simulados) */}
-            {[0, 60, 120, 180, 240, 300].map((angle, i) => {
-                const isEven = i % 2 === 0;
-                return (
-                    <g key={angle} transform={`rotate(${angle} 50 50)`}>
-                        <circle cx="50" cy="24" r="3" fill="#111" stroke="#333" strokeWidth="1" />
-                        <circle cx="50" cy="24" r="1.5" fill={isEven ? "#555" : "#222"} />
-                        {/* Fenda do parafuso */}
-                         <rect x="48.5" y="23.5" width="3" height="1" fill="#000" transform={`rotate(${isEven ? 45 : 90} 50 24)`} />
-                    </g>
-                );
-            })}
-
-            {/* Eixo Central */}
-            <circle cx="50" cy="50" r="12" fill="url(#steel-gradient)" stroke="#000" strokeWidth="1" />
-            <circle cx="50" cy="50" r="5" fill="#000" opacity="0.8" />
-        </svg>
-    </motion.div>
-);
+                {/* Corpo Principal da Engrenagem */}
+                <path d={pathD} fill="url(#gear-gradient)" stroke="#111" strokeWidth="0.5" filter="url(#metal-glow)" />
+                
+                {/* Detalhes Internos */}
+                <circle cx="50" cy="50" r="35" fill="none" stroke="#333" strokeWidth="0.5" opacity="0.5" />
+                <circle cx="50" cy="50" r="20" fill="url(#gear-gradient)" stroke="#111" strokeWidth="0.5" />
+                
+                {/* Furos de alívio */}
+                {holes}
+                
+                {/* Eixo Central */}
+                <circle cx="50" cy="50" r="8" fill="#111" stroke="#333" strokeWidth="2" />
+                <path d="M46 50 L54 50 M50 46 L50 54" stroke="#444" strokeWidth="1" />
+            </svg>
+        </motion.div>
+    );
+};
 
 const About = () => {
     return (
@@ -138,15 +125,10 @@ const About = () => {
                 }}
             />
 
-            {/* ── CIRCUIT LINE CONNECTING SECTIONS ── */}
-            {/* Visível apenas em desktop (md+) onde o layout permite a conexão vertical fluida */}
-            <div className="absolute top-[300px] left-[25%] md:left-[22%] bottom-0 w-[2px] pointer-events-none hidden md:block">
-                {/* Linha vertical principal saindo da engrenagem */}
-                <div className="absolute top-0 left-0 w-full h-[60%] bg-gradient-to-b from-neutral-700 via-neutral-600 to-transparent opacity-40"></div>
-                
-                {/* Pontos de conexão/nós do circuito */}
-                <div className="absolute top-[10%] left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-neutral-800 border border-neutral-600 shadow-[0_0_10px_rgba(245,166,35,0.2)]"></div>
-                <div className="absolute top-[40%] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-neutral-700"></div>
+            {/* ── VISUAL CONNECTOR ── */}
+            {/* Linha industrial reposicionada e estilizada como tubulação */}
+            <div className="absolute top-[50%] left-0 right-0 h-[1px] md:h-auto md:w-[2px] md:top-[350px] md:bottom-[50px] md:left-[80px] lg:left-[calc(50%-1px)] z-0 pointer-events-none hidden md:block opacity-20">
+                 <div className="w-full h-full bg-gradient-to-b from-transparent via-white/40 to-transparent dashed-line"></div>
             </div>
 
             <div className="container mx-auto px-6 md:px-12 relative z-10 space-y-20 md:space-y-24">
@@ -161,29 +143,29 @@ const About = () => {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
-                            className="relative w-[280px] h-[280px] md:w-[400px] md:h-[400px] flex items-center justify-center p-8 bg-black/20 rounded-full backdrop-blur-[2px] border border-white/5"
+                            className="relative w-[280px] h-[280px] md:w-[400px] md:h-[400px] flex items-center justify-center p-8 bg-black/40 rounded-full backdrop-blur-[2px] border border-white/5 shadow-2xl"
                         >
                             {/* ── Single Large Gear Frame ── */}
                             <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
                                 {/* Fundo escuro atrás da engrenagem para destacar o metal */}
-                                <div className="absolute w-[70%] h-[70%] bg-black/80 rounded-full blur-xl"></div>
+                                <div className="absolute w-[80%] h-[80%] bg-black rounded-full blur-2xl opacity-80"></div>
                                 
                                 <RotatingGear 
-                                    size={480} 
-                                    duration={60} 
-                                    className="opacity-100 w-[340px] h-[340px] md:w-[480px] md:h-[480px]" 
+                                    size={460} 
+                                    duration={40} 
+                                    className="opacity-100 w-[340px] h-[340px] md:w-[460px] md:h-[460px] drop-shadow-2xl" 
                                 />
                             </div>
 
                             {/* Glow Effect behind logo */}
-                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--color-brand-primary)_0%,_transparent_60%)] opacity-15 blur-3xl" />
+                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--color-brand-primary)_0%,_transparent_60%)] opacity-20 blur-3xl" />
                             
                             {/* Logo Image - Floating on top */}
                             <img
                                 src="/logo.png"
                                 alt="Logo Trolesi Manutenções"
                                 className="w-[85%] h-auto object-contain drop-shadow-2xl relative z-10"
-                                style={{ filter: "drop-shadow(0 10px 20px rgba(0,0,0,0.5))" }}
+                                style={{ filter: "drop-shadow(0 20px 30px rgba(0,0,0,0.7))" }}
                             />
                         </motion.div>
                     </div>
@@ -194,8 +176,11 @@ const About = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="w-full md:w-7/12"
+                        className="w-full md:w-7/12 relative pl-0 md:pl-8"
                     >
+                         {/* Elemento de conexão vertical sutil ao lado do texto */}
+                         <div className="absolute left-0 top-4 bottom-4 w-[2px] bg-gradient-to-b from-[var(--color-brand-primary)]/20 via-[var(--color-brand-primary)]/60 to-[var(--color-brand-primary)]/20 hidden md:block rounded-full"></div>
+
                         {/* Consistent Badge Style */}
                         <div className="inline-flex items-center gap-2 bg-[var(--color-brand-primary)]/10 border border-[var(--color-brand-primary)]/25 rounded-full px-4 py-1.5 mb-6">
                             <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-primary)] animate-pulse" />
@@ -212,9 +197,6 @@ const About = () => {
                         </h2>
 
                         <div className="space-y-6 text-gray-300 font-light text-lg leading-relaxed text-justify relative">
-                            {/* Elemento de circuito conectando texto */}
-                            <div className="absolute -left-6 top-2 bottom-2 w-[1px] bg-gradient-to-b from-[var(--color-brand-primary)]/30 to-transparent hidden md:block"></div>
-                            
                             <p>
                                 A <strong>Trolesi Manutenções</strong> é uma empresa consolidada no mercado de engenharia e manutenção industrial, especializada em atender as demandas críticas de grandes complexos de <strong>gás de cozinha (GLP)</strong> e indústrias de alta periculosidade.
                             </p>
@@ -226,7 +208,6 @@ const About = () => {
                 </div>
 
                 {/* ── PART 2: HISTORY & CERTIFICATIONS (LEGACY) ── */}
-                {/* Removido border-t para continuidade visual "circuito" */}
                 <div className="flex flex-col lg:flex-row gap-16 items-center relative pt-4">
 
                     {/* Texto História - Left Side */}
@@ -235,13 +216,12 @@ const About = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
-                        className="w-full lg:w-1/2 relative pl-0 md:pl-8" // Padding left para dar espaço ao "fio" que desce da engrenagem
+                        className="w-full lg:w-1/2 relative pl-0 md:pl-8"
                     >
-                         {/* Conector visual do circuito vindo de cima */}
-                         <div className="absolute left-[-2px] md:left-[-15px] top-[-60px] bottom-0 w-[1px] bg-gradient-to-b from-neutral-700 via-neutral-800 to-transparent hidden md:block opacity-50"></div>
+                        {/* Conector lateral sutil, alinhado com o texto de cima */}
+                         <div className="absolute left-0 top-2 bottom-2 w-[2px] bg-gradient-to-b from-white/10 via-white/30 to-white/10 hidden md:block rounded-full"></div>
 
                         <h2 className="text-3xl md:text-4xl font-serif text-white mb-6 flex items-center gap-4">
-                            <span className="hidden md:block w-8 h-[1px] bg-[var(--color-brand-primary)]/50"></span>
                             <span>Nossa <span className="text-[var(--color-brand-primary)]">História</span></span>
                         </h2>
                         <div className="space-y-6 text-gray-300 font-light leading-relaxed text-lg text-justify">
