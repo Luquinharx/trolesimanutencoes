@@ -59,7 +59,7 @@ const RotatingGear = ({ className, duration = 10, reverse = false, size = 100 }:
             animate={{ rotate: reverse ? -360 : 360 }}
             transition={{ repeat: Infinity, duration: duration, ease: "linear" }}
             className={`absolute pointer-events-none origin-center flex items-center justify-center ${className}`}
-            style={{ width: size, height: size }}
+            style={{ width: '100%', height: '100%', maxWidth: size, maxHeight: size }}
         >
             <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-2xl overflow-visible">
                 <defs>
@@ -143,7 +143,7 @@ const About = () => {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
-                            className="relative w-[280px] h-[280px] md:w-[400px] md:h-[400px] flex items-center justify-center p-8 bg-black/40 rounded-full backdrop-blur-[2px] border border-white/5 shadow-2xl"
+                            className="relative w-[280px] h-[280px] md:w-[400px] md:h-[400px] flex items-center justify-center p-8 bg-black/40 rounded-full backdrop-blur-[2px] border border-white/5 shadow-2xl aspect-square"
                         >
                             {/* ── Single Large Gear Frame ── */}
                             <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
@@ -153,7 +153,7 @@ const About = () => {
                                 <RotatingGear 
                                     size={460} 
                                     duration={40} 
-                                    className="opacity-100 w-[340px] h-[340px] md:w-[460px] md:h-[460px] drop-shadow-2xl" 
+                                    className="opacity-100 w-[120%] h-[120%] md:w-[460px] md:h-[460px] drop-shadow-2xl" 
                                 />
                             </div>
 
