@@ -126,7 +126,7 @@ const Services = () => {
                         transition={{ delay: 0.25 }}
                         className="text-gray-400 text-base md:text-lg font-light leading-relaxed"
                     >
-                        Atendemos o ciclo completo dos seus equipamentos — do planejamento à modernização.
+                        Atendemos o ciclo completo dos seus equipamentos, do planejamento à modernização.
                         Expertise rigorosa para o máximo de segurança que o setor de gás exige.
                     </motion.p>
                 </div>
