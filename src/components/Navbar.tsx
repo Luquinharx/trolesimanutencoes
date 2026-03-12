@@ -28,11 +28,8 @@ const Navbar = () => {
         >
             <div className="container mx-auto px-6 md:px-12 flex justify-between md:justify-center items-center relative pointer-events-auto">
                 
-                {/* Mobile Logo Left - 3D Gear Stylized */}
-                <div className="md:hidden flex items-center gap-2">
-                    <img src="/logo.png" alt="Trolesi Logo" className="h-10 w-auto object-contain drop-shadow-lg" />
-                    <span className="text-white font-bold tracking-wider text-sm">TROLESI</span>
-                </div> 
+                {/* Mobile Logo Left - Hidden on mobile as per request */}
+                <div className="md:hidden block" /> 
 
                 {/* Desktop Nav - Centered Pills w/o Logo */}
                 <div className="hidden md:flex gap-12 items-center bg-black/40 px-12 py-3.5 rounded-full border border-white/10 backdrop-blur-md shadow-2xl">

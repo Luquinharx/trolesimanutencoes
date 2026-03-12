@@ -188,20 +188,22 @@ const Hero = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1 }}
-        className="absolute bottom-0 left-0 w-full z-30 bg-black/80 backdrop-blur-md border-t border-white/10 py-6 md:py-8"
+        className="absolute bottom-0 left-0 w-full z-30 bg-black/90 backdrop-blur-xl border-t border-white/10"
       >
-        <div className="container px-6 md:px-12 flex flex-row flex-wrap justify-between md:justify-start gap-8 md:gap-24 items-center">
-            <div>
-               <p className="text-3xl md:text-4xl font-bold text-white">+19</p>
-               <p className="text-xs text-gray-400 uppercase tracking-widest mt-1">Anos de Mercado</p>
-            </div>
-            <div>
-                <p className="text-3xl md:text-4xl font-bold text-white">+10</p>
-                <p className="text-xs text-gray-400 uppercase tracking-widest mt-1">Estados Atendidos</p>
-            </div>
-            <div>
-                <p className="text-3xl md:text-4xl font-bold text-white">+500</p>
-                <p className="text-xs text-gray-400 uppercase tracking-widest mt-1">Projetos Entregues</p>
+        <div className="container mx-auto px-6 py-6 md:py-8">
+            <div className="grid grid-cols-3 gap-4 md:gap-12 divide-x divide-white/10">
+                <div className="flex flex-col items-center md:items-start text-center md:text-left px-2">
+                   <p className="text-2xl md:text-4xl font-bold text-white mb-1">+19</p>
+                   <p className="text-[10px] md:text-xs text-gray-400 uppercase tracking-widest leading-tight">Anos de Mercado</p>
+                </div>
+                <div className="flex flex-col items-center md:items-start text-center md:text-left px-2">
+                    <p className="text-2xl md:text-4xl font-bold text-white mb-1">+10</p>
+                    <p className="text-[10px] md:text-xs text-gray-400 uppercase tracking-widest leading-tight">Estados Atendidos</p>
+                </div>
+                <div className="flex flex-col items-center md:items-start text-center md:text-left px-2">
+                    <p className="text-2xl md:text-4xl font-bold text-white mb-1">+500</p>
+                    <p className="text-[10px] md:text-xs text-gray-400 uppercase tracking-widest leading-tight">Projetos Entregues</p>
+                </div>
             </div>
         </div>
       </motion.div>
