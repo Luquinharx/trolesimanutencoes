@@ -7,30 +7,105 @@ const RotatingGear = ({ className, duration = 10, reverse = false, size = 100 }:
         transition={{ repeat: Infinity, duration: duration, ease: "linear" }}
         className={`absolute pointer-events-none origin-center flex items-center justify-center ${className}`}
         style={{
-            filter: "drop-shadow(0px 4px 6px rgba(0,0,0,0.5))"
+             width: size,
+             height: size
         }}
     >
-        {/* Camada de profundidade/corpo metálico */}
-        <div className="absolute inset-2 rounded-full border-[6px] border-neutral-700/80 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]" />
-        <div className="absolute inset-8 rounded-full border-[2px] border-neutral-600/50 border-dashed opacity-70" />
-        
-        {/* O Ícone principal com aparência metálica */}
-        <Cog 
-            size={size} 
-            strokeWidth={1} 
-            className="w-full h-full text-neutral-400/90 drop-shadow-[0_1px_2px_rgba(255,255,255,0.1)]"
-            style={{
-                filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.8)) brightness(1.1) contrast(1.1)"
-            }}
-        />
-        
-        {/* Brilho metálico sobreposto */}
-        <div 
-            className="absolute inset-0 rounded-full opacity-30"
-            style={{
-                background: "conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.2) 80deg, transparent 180deg, rgba(255,255,255,0.2) 260deg, transparent 360deg)"
-            }}
-        />
+        <svg
+            viewBox="0 0 100 100"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full h-full drop-shadow-2xl"
+        >
+            <defs>
+                {/* Gradiente Metálico Base (Aço Escuro) */}
+                <linearGradient id="steel-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#2b2b2b" />
+                    <stop offset="25%" stopColor="#5a5a5a" />
+                    <stop offset="50%" stopColor="#3d3d3d" />
+                    <stop offset="75%" stopColor="#5a5a5a" />
+                    <stop offset="100%" stopColor="#222222" />
+                </linearGradient>
+
+                 {/* Gradiente para o anel interno (Aço mais claro) */}
+                 <linearGradient id="inner-ring-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#444" />
+                    <stop offset="50%" stopColor="#777" />
+                    <stop offset="100%" stopColor="#333" />
+                </linearGradient>
+
+                {/* Filtro de Textura Industrial (Ruído + Iluminação) */}
+                <filter id="industrial-texture" x="-20%" y="-20%" width="140%" height="140%">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="4" result="noise" />
+                    <feColorMatrix type="saturate" values="0" in="noise" result="desaturatedNoise" />
+                    <feComposite operator="in" in="desaturatedNoise" in2="SourceGraphic" result="composite" />
+                    <feBlend mode="overlay" in="composite" in2="SourceGraphic" result="textured" />
+                    
+                    {/* Leve sombra interna para dar volume 3D */}
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="1" result="blur" />
+                    <feOffset dx="1" dy="1" result="offsetBlur" />
+                    <feSpecularLighting in="blur" surfaceScale="2" specularConstant="1" specularExponent="20" lightingColor="#ffffff" result="specular">
+                        <fePointLight x="-5000" y="-10000" z="20000" />
+                    </feSpecularLighting>
+                    <feComposite in="specular" in2="SourceAlpha" operator="in" result="specular" />
+                    <feComposite in="SourceGraphic" in2="specular" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" />
+                </filter>
+                
+                {/* Sombra projetada forte */}
+                <filter id="heavy-shadow">
+                    <feDropShadow dx="2" dy="4" stdDeviation="6" floodColor="black" floodOpacity="0.8" />
+                </filter>
+            </defs>
+
+            {/* Corpo Principal da Engrenagem (Dentes Industriais) */}
+            <path
+                d="M50 15 
+                   L55 5 L65 5 L70 15 
+                   L78 18 
+                   L88 12 L95 18 L90 28 
+                   L95 35 
+                   L105 38 L105 48 L95 51 
+                   L92 60 
+                   L100 70 L92 78 L80 75 
+                   L72 82 
+                   L75 95 L62 98 L58 85 
+                   L42 85 
+                   L38 98 L25 95 L28 82 
+                   L20 75 
+                   L8 78 L0 70 L8 60 
+                   L5 51 
+                   L-5 48 L-5 38 L5 35 
+                   L10 28 
+                   L5 18 L12 12 L22 18 
+                   L30 15 
+                   L35 5 L45 5 L50 15 Z"
+                fill="url(#steel-gradient)"
+                stroke="#1a1a1a"
+                strokeWidth="0.5"
+                filter="url(#industrial-texture)"
+                transform="translate(0, 0)" // Ajuste fino se necessário
+            />
+
+            {/* Anel de Reforço Central */}
+            <circle cx="50" cy="50" r="32" fill="none" stroke="url(#inner-ring-gradient)" strokeWidth="8" filter="url(#heavy-shadow)" opacity="0.9" />
+            
+            {/* Parafusos de Fixação (Hex bolts simulados) */}
+            {[0, 60, 120, 180, 240, 300].map((angle, i) => {
+                const isEven = i % 2 === 0;
+                return (
+                    <g key={angle} transform={`rotate(${angle} 50 50)`}>
+                        <circle cx="50" cy="24" r="3" fill="#111" stroke="#333" strokeWidth="1" />
+                        <circle cx="50" cy="24" r="1.5" fill={isEven ? "#555" : "#222"} />
+                        {/* Fenda do parafuso */}
+                         <rect x="48.5" y="23.5" width="3" height="1" fill="#000" transform={`rotate(${isEven ? 45 : 90} 50 24)`} />
+                    </g>
+                );
+            })}
+
+            {/* Eixo Central */}
+            <circle cx="50" cy="50" r="12" fill="url(#steel-gradient)" stroke="#000" strokeWidth="1" />
+            <circle cx="50" cy="50" r="5" fill="#000" opacity="0.8" />
+        </svg>
     </motion.div>
 );
 
