@@ -183,30 +183,36 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* ── CLEAN STATS BAND ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1 }}
-        className="absolute bottom-0 left-0 w-full z-30 bg-black/90 backdrop-blur-xl border-t border-white/10"
+      {/* ── ANIMATED STATS CARDS ── */}
+      <div 
+        className="absolute bottom-6 md:bottom-12 left-0 w-full z-30 px-4 pointer-events-none"
       >
-        <div className="container mx-auto px-6 py-6 md:py-8">
-            <div className="grid grid-cols-3 gap-4 md:gap-12 divide-x divide-white/10">
-                <div className="flex flex-col items-center md:items-start text-center md:text-left px-2">
-                   <p className="text-2xl md:text-4xl font-bold text-white mb-1">+19</p>
-                   <p className="text-[10px] md:text-xs text-gray-400 uppercase tracking-widest leading-tight">Anos de Mercado</p>
-                </div>
-                <div className="flex flex-col items-center md:items-start text-center md:text-left px-2">
-                    <p className="text-2xl md:text-4xl font-bold text-white mb-1">+10</p>
-                    <p className="text-[10px] md:text-xs text-gray-400 uppercase tracking-widest leading-tight">Estados Atendidos</p>
-                </div>
-                <div className="flex flex-col items-center md:items-start text-center md:text-left px-2">
-                    <p className="text-2xl md:text-4xl font-bold text-white mb-1">+500</p>
-                    <p className="text-[10px] md:text-xs text-gray-400 uppercase tracking-widest leading-tight">Projetos Entregues</p>
-                </div>
+        <div className="container mx-auto max-w-5xl pointer-events-auto">
+            <div className="grid grid-cols-3 md:flex md:justify-center gap-3 md:gap-8">
+                {[
+                    { number: 19, label: "Anos de Mercado", delay: 0 },
+                    { number: 10, label: "Estados Atendidos", delay: 0.1 },
+                    { number: 500, label: "Projetos Entregues", delay: 0.2 }
+                ].map((stat, index) => (
+                    <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 1 + stat.delay }}
+                        whileHover={{ y: -5, borderColor: 'rgba(245,166,35,0.5)', backgroundColor: 'rgba(0,0,0,0.9)' }}
+                        className="flex-1 bg-black/60 backdrop-blur-md border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6 flex flex-col items-center justify-center text-center group transition-all duration-300 shadow-lg hover:shadow-[0_0_30px_rgba(245,166,35,0.15)]"
+                    >
+                        <h3 className="text-2xl md:text-5xl font-bold text-white mb-1 md:mb-2 group-hover:text-[var(--color-brand-primary)] transition-colors">
+                           +{stat.number}
+                        </h3>
+                        <p className="text-[9px] md:text-xs text-gray-300 uppercase tracking-widest font-medium group-hover:text-white transition-colors leading-tight">
+                            {stat.label}
+                        </p>
+                    </motion.div>
+                ))}
             </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };
