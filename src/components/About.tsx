@@ -122,10 +122,11 @@ const About = () => {
                         transition={{ duration: 0.8, delay: 0.3 }}
                         className="w-full lg:w-1/2 flex justify-center"
                     >
-                        {/* Imagem + Overlay de Certificação - Optimized Framing */}
+                        {/* Imagem + Overlay de Certificação - Fully Responsive */}
                         <div className="relative w-full max-w-sm md:max-w-none rounded-3xl overflow-hidden border border-white/10 bg-neutral-900 group shadow-2xl mx-4 md:mx-0">
-                             {/* Background Scene - Subtle Welding */}
-                             <div className="aspect-[4/5] md:aspect-[4/3] relative">
+                             
+                             {/* Background Scene - Absolute Cover */}
+                             <div className="absolute inset-0 z-0">
                                 <div className="absolute inset-0 bg-black/70 z-10" />
                                 <img
                                     src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop"
@@ -134,21 +135,21 @@ const About = () => {
                                 />
                              </div>
 
-                             {/* Content Overlay - Centered and Spaced */}
-                             <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-8">
-                                <h3 className="text-2xl font-bold text-white mb-8 text-center uppercase tracking-widest bg-black/40 backdrop-blur-sm px-6 py-2 rounded-full border border-white/10">
+                             {/* Content - Relative (Defines Height) */}
+                             <div className="relative z-20 flex flex-col items-center justify-center p-8 md:p-12 min-h-[420px]">
+                                <h3 className="text-xl md:text-2xl font-bold text-white mb-8 text-center uppercase tracking-widest bg-black/40 backdrop-blur-sm px-6 py-2 rounded-full border border-white/10 whitespace-nowrap">
                                     Qualidade Garantida
                                 </h3>
 
-                                <div className="w-full space-y-6">
+                                <div className="w-full space-y-4 md:space-y-6">
                                     {[
                                         { icon: Award, text: 'Licença Industrial 202A' },
                                         { icon: CheckCircle, text: 'Laudos ERF80M C80G5' },
                                         { icon: Factory, text: 'Segurança ABNT / NBR' }
                                     ].map((cert, i) => (
-                                        <div key={i} className="flex items-center gap-5 bg-black/80 p-5 rounded-2xl border border-white/10 hover:border-[var(--color-brand-primary)]/50 transition-colors backdrop-blur-md shadow-lg">
-                                            <cert.icon className="text-[var(--color-brand-primary)] w-7 h-7 flex-shrink-0" />
-                                            <span className="text-white font-medium text-base md:text-lg">{cert.text}</span>
+                                        <div key={i} className="flex items-center gap-4 md:gap-5 bg-black/80 p-4 md:p-5 rounded-2xl border border-white/10 hover:border-[var(--color-brand-primary)]/50 transition-colors backdrop-blur-md shadow-lg w-full">
+                                            <cert.icon className="text-[var(--color-brand-primary)] w-6 h-6 md:w-7 md:h-7 flex-shrink-0" />
+                                            <span className="text-white font-medium text-sm md:text-lg leading-tight">{cert.text}</span>
                                         </div>
                                     ))}
                                 </div>
